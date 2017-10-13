@@ -4,6 +4,10 @@
 //
 
 #include <stdlib.h>
+#include <limits.h>
+#include <iostream>
+
+
 
 //////////////////////////////////////////////////////////////
 //
@@ -12,7 +16,6 @@
 
 #ifndef MARMOSET_TESTING
 
-#include <iostream>
 
 using namespace std;
 
@@ -56,10 +59,14 @@ int leastCommonMultiple (const int a, const int b) {
   int lcm = 0;
 
   int gcd =  greatestCommonDenominator( a,  b);
-
+  int d = (INT_MAX)/(b/gcd);
+  if (a > d) {
+    return -2;
+  }
+  else{
    lcm = a * (b/ gcd);
 
-
+  }
   if (lcm < 0){
     return -1;
   }

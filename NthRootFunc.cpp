@@ -1,3 +1,5 @@
+
+
 //////////////////////////////////////////////////////////////
 //
 // Your #includes here; make sure you are allowed them ...
@@ -19,13 +21,7 @@
 using namespace std;
 
 
-float pow(float a, float b){
-  int multiple = 1;
-  for ( int i = 0; i < b; i ++){
-    multiple = a * multiple;
-  }
-    return multiple;
-}
+
 
 float NthRoot(const float S, const int N, const float precision);
 #endif
@@ -41,44 +37,49 @@ float NthRoot(const float S, const int N, const float precision);
 // precision.
 //
 
+float pow(float a, float b){
+  float multiple = 1;
+  for ( int i = 0; i < b; i ++){
+    multiple = a * multiple;
+  }
+    return multiple;
+}
 
-float absol(int B){
+float absol(float B){
   if(B < 0){
     B = -B;
   }
   return B;
 }
+
 float NthRoot(const float S, const int N, const float precision){
+
+
+  if (S < 0 && N%2 == 0|| precision < 0 || precision > 1 || N <=1||precision <= 0){
+    return std::numeric_limits<float>::quiet_NaN();
+  }
+
+
   float precision_test = 1;
   float result = 1;
+  float prev_result = 0;
 
-  while (!(precision_test < precision)){
-      cout<<result<< "result of root before"<< endl;
+
+  while (absol(result - prev_result) > 1e-7 && precision_test > precision){
+        prev_result = result;
+
+
 
        result = ((N - 1)*result/N )+ (S/(N * pow(result, N - 1)));
-       cout<<result<<"result after calc" <<endl;
-       cout<<precision_test<<" precision-test before "<<endl;
 
        precision_test = ((S - pow(result,N))/S);
        precision_test = absol(precision_test);
-
-       cout << precision_test << "precision-test after ";
-
-
-         cout<<precision_test<<endl;
     }
 
 
 
+    return result;
 
-    return result;
-  /*if (error) {
-    return (std::numeric_limits<float>::quiet_NaN());
-  }
-  else{
-    return result;
-  }
-  */
 }
 
 float precisionfunc(const float number, const int B, const float result){
