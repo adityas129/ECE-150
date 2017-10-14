@@ -69,10 +69,11 @@ float NthRoot(const float S, const int N, const float precision){
         prev_result = result;
 
 
+       float Nfloat = (float)N;
 
-       result = ((N - 1)*result/N )+ (S/(N * pow(result, N - 1)));
+       result = ((N - 1)*result/Nfloat )+ (S/(Nfloat * pow(result, Nfloat - 1)));
 
-       precision_test = ((S - pow(result,N))/S);
+       precision_test = ((S - pow(result,Nfloat))/S);
        precision_test = absol(precision_test);
     }
 
@@ -83,7 +84,9 @@ float NthRoot(const float S, const int N, const float precision){
 }
 
 float precisionfunc(const float number, const int B, const float result){
-  float precision1 = absol((number - pow(result, B))/number);
+  float Bfloat = (float)B;
+
+  float precision1 = absol((number - pow(result, Bfloat))/number);
   return precision1;
 }
 

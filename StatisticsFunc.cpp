@@ -47,17 +47,27 @@ float pow(float a, float b){
 bool statistics(const float dataset[], const int size,
 	   float& min, float& avg, float& max,
 	   float& popSD, float& smplSD, float& mdn) {
-       int statisticcs = 1;
-    if (minimum(dataset[], size) == NaN || average( dataset[],  size) == NaN || maximum( dataset[], size) == NaN || popStdDev( dataset[],  size) == NaN || smplStdDev( dataset[], size) == NaN || median( dataset[], size)== NaN || size <= 0){
-      statisticcs = 0;
+       bool statisticcs = true;
+       if (size < 1){
+         statisticcs = false;
+       }
+       min = minimum(dataset, size);
+       avg = average(dataset, size);
+       max = maximum(dataset, size);
+       popSD = popStdDev(dataset, size);
+       smplSD = smplStdDev(dataset, size);
+       mdn = median(dataset, size);
+
+
+       return statisticcs;
+
     }
-  return statisticcs;
-}
+
 
 float minimum(const float dataset[], const int size) {
+  float min = INT_MAX;
 
   for (int i = 0; i < size; i++){
-    float min = INT_MAX;
     float value = dataset[i];
     if (value < min){
      min = value;
@@ -78,8 +88,9 @@ float average(const float dataset[], const int size) {
 }
 
 float maximum(const float dataset[], const int size) {
+  float max = INT_MIN;
+
   for (int i = 0; i < size; i++){
-    float max = INT_MIN;
     float value = dataset[i];
     if (value > max){
      max = value;
@@ -89,7 +100,7 @@ float maximum(const float dataset[], const int size) {
 }
 
 float popStdDev(const float dataset[], const int size) {
-  float popStdDev = 0;
+  float popStDev = 0;
   float sum = 0;
   float avg = 0;
   for (int i = 0; i < size; i++){
@@ -99,7 +110,7 @@ float popStdDev(const float dataset[], const int size) {
 
   float sigma = 0;
   for (int j = 0; j < size; j++){
-    float sigma = pow((dataset[j] - avg), 2) + sigma;
+     sigma = pow((dataset[j] - avg), 2) + sigma;
   }
   popStDev = sqrt((sigma / size));
   return popStDev;
@@ -113,39 +124,44 @@ float smplStdDev(const float dataset[], const int size) {
     sum = dataset[i] + sum;
   }
   avg = sum/ size;
-
   float sigma = 0;
   for (int j = 0; j < size; j++){
-    float sigma = pow((dataset[j] - avg), 2) + sigma;
+     sigma = pow((dataset[j] - avg), 2) + sigma;
   }
   smplStDev = sqrt(sigma / (size-1));
+
   return smplStDev;
 
 }
 
 float median(const float dataset[], const int size) {
+  float mdn = 0;
+  float array[size];
+  for (int i=0; i < size; i++){
+     array[i] = dataset[i];
+  }
   for (int n=0; n<size-1; n++)
   {
     for (int k=0; k<size-n-1; k++)
     {
-      if (dataset[k]>dataset[k+1])
+      if (array[k]>array[k+1])
       {
-        int temp = dataset[k+1];
-        dataset[k+1] = dataset[k];
+        float temp = array[k+1];
+        array[k+1] = array[k];
 
-        dataset[k] = temp;
+        array[k] = temp;
       }
     }
-    float mdn = 0;
   	if (size % 2 == 0){
-  		 mdn = ( (float)dataset[size/2-1] + (float)dataset[size/2] ) / 2;
+  		 mdn = ( array[size/2-1] + array[size/2] ) / 2;
   	}
     else{
-      mdn = dataset[size/2];
+      mdn = array[size/2];
     }
+  }
     return mdn;
-
 }
+
 
 //////////////////////////////////////////////////////////////
 //
@@ -159,14 +175,15 @@ float median(const float dataset[], const int size) {
 #ifndef MARMOSET_TESTING
 
 int main(const int argc, const char* const argv[]) {
-  int size = 5;
-  float dataset[] = {1, 2, 3, 4, 5};
+  int size = 15;
+  float dataset[] = {17.6028 , 10.9157,  16.7465 , 16.9766 ,18.6747, 7.96327 ,10.0283 ,16.5234 ,9.16662, 13.3095 ,12.161 ,14.4331 ,10.4718, 12.701 ,19.2834};
   float min;
   float avg;
   float max;
   float popStDev;
   float smplStDev;
   float median;
+  cout << "smaple stdev"<< smplStdDev(dataset, size);
 
   if (statistics(dataset, size, min, avg, max, popStDev, smplStDev, median)) {
     cout << "Minimum: " << min << endl
