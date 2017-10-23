@@ -1,82 +1,140 @@
-#include <iostream>
-#include <float.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <iomanip>
+//////////////////////////////////////////////////////////////
+//
+// Your #includes here; make sure you are allowed them ...
+//
 
+#include <stdlib.h>
+#include <float.h>
+
+
+//////////////////////////////////////////////////////////////
+//
+// #includes and function declarations; do not remove
+//
+
+#ifndef MARMOSET_TESTING
+
+#include <iostream>
 
 using namespace std;
 
-int main(const int argc, const char* const argv[]){
-  if (argc < 3 ){
-    cerr << "Error: Unable to compute statistics over data set because not enough inputs arguments were given." << endl;
-    return -1;
-  }
+int SWStats(const float dataset[], const int size,
+            const int currentSample, const int windowSize,
+            float& min, float& avg, float& max,
+            float& smplSD, float& mdn);
 
-  int size = argc -2;
-  float array[size];
-  float min = FLT_MAX;
-  float max = -FLT_MAX;
-  float avg = 0;
-  float sum = 0;
-  int window_size = atoi(argv[1]);
-  int input_number = size;
-  int count = 0;
+int SWMinimum(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& minimum);
+int SWAverage(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& average);
+int SWMaximum(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& maximum);
+int SWSmplStdDev(const float dataset[], const int size,
+                 const int currentSample, const int windowSize,
+                 float& smplStdDev);
+int SWMedian(const float dataset[], const int size,
+             const int currentSample, const int windowSize,
+             float& median);
+#endif
+
+//////////////////////////////////////////////////////////////
+//
+// Your code here ...
+//
+
+int SWStats(const float dataset[], const int size,
+            const int currentSample, const int windowSize,
+            float& min, float& avg, float& max,
+            float& smplSD, float& mdn) {
+
+}
+
+int SWMinimum(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& minimum) {
+                float array1[size + windowSize -1];
+                int cap = currentSample + 1 - windowSize;
+                for(int j = 0; i < windowSize - 1; i++ ){
+                  array1[j]= dataset[0];
+                }
+                for(int i = windowSize-1, j = 0; j  < size; i++, j++){
+                  array1[i]= dataset[j];
+                }
+                float minimum = FLT_MAX;
+                for(int k = currentSample + (windowSize - 1 ); k > currentSample - 1 ; k -- ){
+                  if(array[k] < min){
+                    minimum = array[k];
+                  }
+
+                }
+                return 0;
+}
+
+int SWAverage(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& average) {
+}
 
 
-  if (window_size > input_number){
-    cerr << "Warning: Unable to compute statistics over data set because not enough inputs arguments were given." << endl;
-    return -1;
-  }
-  if (window_size == 1){
-    cerr << "Warning: Unable to compute statistics over data set because window is too small." << endl;
-    return -1;
-  }
+int SWMaximum(const float dataset[], const int size,
+              const int currentSample, const int windowSize,
+              float& maximum) {
 
-  if (window_size < 1){
-    cerr << "Error: Unable to compute statistics over data set because window is too small." << endl;
-    return -1;
-  }
-  for (int i = 0; i < size; i++){
-    array[i]= atof(argv[i+2]);
-  }
-  cout << "Window Size: "<< atof(argv[1])<< endl;
-  cout << setw(10) <<"Sample" << setw(10) <<"Value"<< setw(10)<<  "SWMinimum" << setw(10)<<"SWAverage"<<  setw(10)<<"SWMaximum" << endl;
+}
 
-  int n= 0; int m=0;
-  while(m < (size)){
-    float array1[window_size];
+int SWSmplStdDev(const float dataset[], const int size,
+                 const int currentSample, const int windowSize,
+                 float& smplStdDev) {
+}
 
-    for(int k = 0; k < window_size; k++){       //
+int SWMedian(const float dataset[], const int size,
+             const int currentSample, const int windowSize,
+             float& median) {
+}
 
-       array1[k] = array[k+m];
+
+
+//////////////////////////////////////////////////////////////
+//
+// Test Driver
+//
+// Do not remove the #ifndef and its associated #endif
+// This is required so that when you submit your code,
+// this test driver will be ignored by Marmoset
+//
+
+#ifndef MARMOSET_TESTING
+
+int main(const int argc, const char* const argv[]) {
+    int size = 5;
+    float dataset[] = {1, 2, 3, 4, 5};
+    int windowSize = 2;
+    int currentSample = 0;
+    float min;
+    float avg;
+    float max;
+    float smplSD;
+    float median;
+
+    cout << "Sample \t Minimum \t Average \t Median \t Maximum \t Sample Standard Deviation" << endl;
+
+    while (currentSample < size) {
+        int retCode = SWStats(dataset, size, currentSample, windowSize, min, avg, max, smplSD, median);
+        if (retCode >= 0) {
+            cout << currentSample << "\t " << min << "\t " << avg << "\t " << max << "\t " << median << "\t " << smplSD << endl;
+            if (retCode > 0)
+                cerr << "Warning: something weird happened, but we computed stats anyway ... YMMV" << endl;
+        }
+        else {
+            cerr << "Error: unable to compute sliding-window statistics; exiting" << endl;
+            return(-1);
+        }
+        ++currentSample;
     }
-
-
-    while(n < window_size){
-
-      if (min > array1[m]){
-      min = array1[m];
-
-      }
-      if (max < array[m]){
-        max = array [m];
-
-      }
-      sum = sum + array1[m];
-
-
-      n++;
-  }
-  n=0;
-
-
-  cout << setw(10)<< m << setw(10) << array[m]<<setw(10) << min  << setw(10)<< (sum/window_size) <<setw(10)<< max << endl;
-  m++;
-  sum = 0;
-  //}
-
-
-
+    return 0;
 }
-}
+
+#endif
