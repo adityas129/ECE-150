@@ -55,8 +55,11 @@ float absol(float B){
 float NthRoot(const float S, const int N, const float precision){
 
 
-  if (S < 0 && N%2 == 0|| precision < 0 || precision > 1 || N <=1||precision <= 0){
+  if (S < 0 && N%2 == 0 || precision > 1 || N <=1||precision <= 0){
     return std::numeric_limits<float>::quiet_NaN();
+  }
+  if(S == 0){
+    return 0;
   }
 
 
