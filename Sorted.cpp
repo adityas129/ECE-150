@@ -12,6 +12,8 @@
 
 #ifndef MARMOSET_TESTING
 #include <iostream>
+#include <stdlib.h>
+#include <limits>
 using namespace std;
 #endif
 
@@ -36,39 +38,46 @@ bool sorted(const float data[]);
 
 bool isSorted(const float data[], int currentDataItem, sortType type)
  {
-   if (data[currentDataItem]==NaN){
+   if (data[currentDataItem] != data[currentDataItem]){
      return true;
                       // if it reaches the end of the input when it encounters NaN, it means that it is true.
    }
-  // if (dataset[0]==NaN){
+   if (data[currentDataItem + 1] != data[currentDataItem+1]){
+    //  cout <<"asdlkjalsjf"<<endl;
+     return true;
+                      // if it reaches the end of the input when it encounters NaN, it means that it is true.
+   }
     //return true;
                       // if it reaches the end of the input when it encounters NaN, it means that it is true.
 //   }
    switch (type) {
      case ASCENDING:
-       if ((data[currentDataItem] > data[currentDataItem -1])){
-         return isSorted(data, currentDataItem+1, ASCENDING);
+       if ((data[currentDataItem] <= data[currentDataItem + 1])){
+
+         return isSorted(data, currentDataItem +1, ASCENDING);
        }
+
        else{
-         //...
+        //  cout <<"ascending false"<<endl;
+
+         return false;
        }
        break;
      case DESCENDING:
-     if ((data[currentDataItem] < data[currentDataItem -1])){
+     if ((data[currentDataItem] >= data[currentDataItem +1])){
+      //  cout <<"descending comp"<<endl;
+
        return isSorted(data, currentDataItem+1, DESCENDING);
      }
      else{
-      // ...
+      //  cout <<"descending false"<<data[currentDataItem] << " " << data[currentDataItem+1] <<endl;
+
+       return false;
      }
      break;
-     defaut:
-     return false;
-
-
   }
-  currentDataItem ++;
-//  ...
 }
+
 
 bool sorted(const float data[]) {
   if (isSorted(data, 0, ASCENDING)){
@@ -77,12 +86,7 @@ bool sorted(const float data[]) {
   else if (isSorted(data, 0, DESCENDING)){
     return true;
   }
-  else if (isSorted(data, 0, UNKNOWN)){
-    return false;
-  }
-  else if(isSorted(data, 0, UNSORTED)){
-    return false;
-  }
+
   else{
     return false;
   }
@@ -103,7 +107,7 @@ bool sorted(const float data[]) {
 int main(const int argc, const char* const argv[]) {
 
   // Some test driver code here ....
-  float data[] = {1, 2, 4, 5, 9, NaN};
+  float data[] = {123.2, 30.4, NaN};
 
   if (sorted(data))
     cout << "Data is sorted" << endl;
