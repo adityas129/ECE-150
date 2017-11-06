@@ -31,7 +31,7 @@ bool projectileDestination(const float h, const float v, const float m,
 //////////////////////////////////////////////////////////////
 //
 // Your code here ...
-//  
+//
 // Return std::numeric_limits<float>::quiet_NaN() (comes from
 // <limits>) if cannot compute the root for some reason
 //
@@ -57,9 +57,11 @@ bool projectileDestination(const float h, const float v, const float m,
 #define isNaN(X) (X != X)  // NaN is the only float that is not equal to itself
 
 int main(const int argc, const char* const argv[]) {
-  
-  // Some test driver code here ....
 
+  // Some test driver code here ....
+//90 -180
+
+// four courses for ball landing
   float h = 10;
   float v = 10;
   float m = 10;
