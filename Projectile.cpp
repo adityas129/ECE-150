@@ -15,6 +15,8 @@
 using namespace std;
 #endif
 
+#define isNaN(X) (X != X)  // NaN is the only float that is not equal to itself
+
 //////////////////////////////////////////////////////////////
 //
 // Function declarations; do not remove
@@ -40,7 +42,19 @@ bool projectileDestination(const float h, const float v, const float m,
                            const float theta, const float d,
                            const float t, const float b, const float w,
                            float& destX, float& destY) {
-  // Your code here ...
+
+                             if (h <= 0 || v < 0 || m <= 0 || theta < 0 || w <= 0|| b >= d){
+                               return false;
+                             }
+
+                             if (theta = 0){
+                               return
+                             }
+                             if (v=0){
+
+                             }
+
+
 }
 
 //////////////////////////////////////////////////////////////
@@ -53,8 +67,6 @@ bool projectileDestination(const float h, const float v, const float m,
 //
 
 #ifndef MARMOSET_TESTING
-
-#define isNaN(X) (X != X)  // NaN is the only float that is not equal to itself
 
 int main(const int argc, const char* const argv[]) {
 
