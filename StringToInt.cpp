@@ -13,6 +13,7 @@
 
 #ifndef MARMOSET_TESTING
 #include <iostream>
+#include <math.h>
 using namespace std;
 #endif
 
@@ -36,31 +37,46 @@ bool stringToInt(const char input[], int& value);
 
 bool stringToInt(const char input[], int& value) {
 
-  int number = 1;
+  int sign = 1;
   int size = 0;
   while (input[size] != '/0'){
     size ++;
   }
 
   if (input[0] == '-'){
-    number = - 1;
-    for ( int i = 1; i < size; i++){
+
+    sign = - 1;
+    for ( int i = 1, j = size - 2; i < size; i++, j--){
       if (input[i] < '0'|| input[i] >  '9'){
         return false;
       }
-    int
+      int num = input [i]- '0';
+      int intermed_pow = num * pow( 10 , j);
+      number = intermed_pow * sign ;
+
+
 
     }
   }
 
   else if(input[0] == '+'){
-    number = 1;
-    for ( int i = 1; i < size; i++){
-      if
+    sign = 1;
+    for ( int i = 1, j = size -2; i < size; i++, j--){
+      if (input[i] < '0'|| input[i] >  '9'){
+        return false;
+      }
+      int num = input [i]- '0';
+
     }
   }
   else{
     for ( int i=0; i < size; i++){
+      if (input[i] < '0'|| input[i] >  '9'){
+        return false;
+      }
+      int num = input [i]- '0';
+
+
 
     }
   }

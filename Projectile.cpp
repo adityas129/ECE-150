@@ -11,6 +11,7 @@
 //
 
 #ifndef MARMOSET_TESTING
+#include <math.h>
 #include <iostream>
 using namespace std;
 #endif
@@ -43,16 +44,24 @@ bool projectileDestination(const float h, const float v, const float m,
                            const float t, const float b, const float w,
                            float& destX, float& destY) {
 
-                             if (h <= 0 || v < 0 || m <= 0 || theta < 0 || w <= 0|| b >= d){
+                             if (h <= 0 || v < 0 || m <= 0 || w <= 0){
                                return false;
                              }
-
-                             if (theta = 0){
-                               return
+                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
+                               // when ball lands on top of the building
                              }
-                             if (v=0){
-
+                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
+                               // when ball hits the building
                              }
+                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
+                               // when the ball falls short
+                             }
+                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
+                               // when the ball goes the opposite way
+                             }
+
+
+
 
 
 }
