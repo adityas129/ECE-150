@@ -39,6 +39,7 @@ bool stringToInt(const char input[], int& value) {
 
   int sign = 1;
   int size = 0;
+  int value = 0;
   while (input[size] != '/0'){
     size ++;
   }
@@ -46,13 +47,13 @@ bool stringToInt(const char input[], int& value) {
   if (input[0] == '-'){
 
     sign = - 1;
-    for ( int i = 1, j = size - 2; i < size; i++, j--){
+    for ( int i = 1, j = size - 2, j == 0; i < size; i++, j--){
       if (input[i] < '0'|| input[i] >  '9'){
         return false;
       }
-      int num = input [i]- '0';
+      int num = input [i] - '0';
       int intermed_pow = num * pow( 10 , j);
-      number = intermed_pow * sign ;
+      value = intermed_pow * sign + value;
 
 
 

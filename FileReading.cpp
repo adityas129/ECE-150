@@ -4,6 +4,7 @@
 //
 
 #include <stdlib.h>
+#include <fstream>
 
 //////////////////////////////////////////////////////////////
 //
@@ -23,14 +24,14 @@ using namespace std;
 // minIntervalSize are too tightly specified.
 //
 
-int histogram(const char filename[], int histogram[10], 
+int histogram(const char filename[], int histogram[10],
               const int minAcceptableID, const int maxAcceptableID,
               int*& rejects);
 
 //////////////////////////////////////////////////////////////
 //
 // Your code here ...
-//  
+//
 // Return -1 if you cannot compute the histogram for any
 // reason;
 // Return 0 if the histogram is correct and there are no
@@ -39,7 +40,7 @@ int histogram(const char filename[], int histogram[10],
 // records from the file
 //
 
-int histogram(const char filename[], int histogram[10], 
+int histogram(const char filename[], int histogram[10],
               const int minAcceptableID, const int maxAcceptableID,
               int*& rejects) {
   // Your code here ...
@@ -59,7 +60,7 @@ int histogram(const char filename[], int histogram[10],
 #define isNaN(X) (X != X)  // NaN is the only float that is not equal to itself
 
 int main(const int argc, const char* const argv[]) {
-  
+
   // Some test driver code here ....
   if (argc < 2) {
 
