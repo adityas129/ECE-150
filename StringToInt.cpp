@@ -2,7 +2,8 @@
 //
 // Your #includes here; make sure you are allowed them ...
 #include <limits>
-#include <stdlib.h>
+#include <math.h>
+#include <cmath>
 
 //
 
@@ -13,7 +14,7 @@
 
 #ifndef MARMOSET_TESTING
 #include <iostream>
-#include <math.h>
+
 using namespace std;
 #endif
 
@@ -34,39 +35,46 @@ bool stringToInt(const char input[], int& value);
 // Return std::numeric_limits<float>::quiet_NaN() (comes from
 // <limits>) if cannot compute the root for some reason
 //
+int pow(int a, int b){
+  for ( int i = 0; i < b; i ++){
+    int multiple = 1;
+    multiple = a * multiple;
+    return multiple;
+
+  }
+}
 
 bool stringToInt(const char input[], int& value) {
-
+  value=0;
   int sign = 1;
   int size = 0;
-  int value = 0;
-  while (input[size] != '/0'){
+  while (input[size] != '\0'){
     size ++;
   }
-
+  if (size ==0){
+    return false;
+  }
   if (input[0] == '-'){
 
     sign = - 1;
-    for ( int i = 1, j = size - 2, j == 0; i < size; i++, j--){
+    for ( int i = 1; i < size; i++){
       if (input[i] < '0'|| input[i] >  '9'){
         return false;
       }
-      int num = input [i] - '0';
-      int intermed_pow = num * pow( 10 , j);
-      value = intermed_pow * sign + value;
-
-
+      int num = -1 *(input[i] - '0');
+      value =value*10+num;
 
     }
   }
 
   else if(input[0] == '+'){
     sign = 1;
-    for ( int i = 1, j = size -2; i < size; i++, j--){
+    for ( int i = 1; i < size; i++){
       if (input[i] < '0'|| input[i] >  '9'){
         return false;
       }
-      int num = input [i]- '0';
+      int num = input [i] - '0';
+      value = num+ value*10;
 
     }
   }
@@ -75,14 +83,12 @@ bool stringToInt(const char input[], int& value) {
       if (input[i] < '0'|| input[i] >  '9'){
         return false;
       }
-      int num = input [i]- '0';
-
-
-
+      int num = input [i] - '0';
+      value = num+ value*10;
     }
   }
 
-
+  return true;
 }
 //////////////////////////////////////////////////////////////
 //

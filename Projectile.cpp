@@ -43,15 +43,28 @@ bool projectileDestination(const float h, const float v, const float m,
                            const float theta, const float d,
                            const float t, const float b, const float w,
                            float& destX, float& destY) {
+                             float g = 9.81;
 
-                             if (h <= 0 || v < 0 || m <= 0 || w <= 0){
+                             if (h * v < 0 || h * t < 0){
                                return false;
                              }
-                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
-                               // when ball lands on top of the building
+                             float
+                             if (theta == 90){
+                               //ball goes straight up and down
+
                              }
-                             if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
+                             float distance = (v*v)(sin(2*theta))(1 + sqrt(1+((2g*h)/((v*v)*(sin theta)*(sin theta)))))/(19.6);
+                             if (distance > b && distance < (w+b)){
+
+                               // ball lands on top
+
+
+                             }
+                             if ( distance =   ){
                                // when ball hits the building
+                             }
+                             if (d < b ){
+                               // when ball crosses the building
                              }
                              if (v > 0 || h > t || d > b || theta > 0 || theta < 90 ){
                                // when the ball falls short

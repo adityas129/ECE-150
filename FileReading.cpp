@@ -3,17 +3,18 @@
 // Your #includes here; make sure you are allowed them ...
 //
 
-#include <stdlib.h>
 #include <fstream>
+using namespace std;
+
 
 //////////////////////////////////////////////////////////////
 //
 // #includes and function declarations; do not remove
 //
 
+
 #ifndef MARMOSET_TESTING
 #include <iostream>
-using namespace std;
 #endif
 
 //////////////////////////////////////////////////////////////
@@ -43,6 +44,47 @@ int histogram(const char filename[], int histogram[10],
 int histogram(const char filename[], int histogram[10],
               const int minAcceptableID, const int maxAcceptableID,
               int*& rejects) {
+                const int maxLineLength = 100;
+                 int maxNumErrors = 10;
+
+                char line[maxLineLength];
+                int size_of_rejects = 0;
+                ifstream infile;
+                infile.open("filename");
+                if (!infile.is_open()){
+                  return -1;
+                }
+                int charinline = 0;
+                int fileLineNumber = 0;
+
+
+                while (infile.peek()!= EOF){
+                  ++fileLineNumber;
+                  charinline = 0;
+                  while (infile.get()!=','){
+                    ++charinline;
+                    if (infile.get()==' '){
+                      -- charinline;
+                    }
+                    cout << line[charinline];
+                    if (charinline <=7){
+                      ++size_of_rejects;
+                      *(rejects + size_of_rejects) = fileLineNumber;
+                    }
+
+                    //cout << line[charinline];
+                  }
+                //  doHistogramStuff();
+
+                }
+
+
+
+
+                infile.close();
+                if (size_of_rejects > maxNumErrors){
+                  return -1;
+                }
   // Your code here ...
 }
 
@@ -57,7 +99,8 @@ int histogram(const char filename[], int histogram[10],
 
 #ifndef MARMOSET_TESTING
 
-#define isNaN(X) (X != X)  // NaN is the only float that is not equal to itself
+#define isNaN(X) (X != X)
+ // NaN is the only float that is not equal to itself
 
 int main(const int argc, const char* const argv[]) {
 
